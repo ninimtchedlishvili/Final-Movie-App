@@ -1,9 +1,10 @@
-const API_URL = "https://api.themoviedb.org/3/movie/361743/similar?&language=en-US&page=6&api_key=2a7d4498c790ee971ae3369d0327d57c";
+const API_URL = "https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=3fd2be6f0c70a2a598f084ddfb75487c&page=1&quot";
 const IMG_PATH = "https://image.tmdb.org/t/p/w1280";
 const SEARCH_API = 'https://api.themoviedb.org/3/search/movie?api_key=3fd2be6f0c70a2a598f084ddfb75487c&query="';
 
 
-document.getElementById("trending-movies").addEventListener("click", () => {
+
+document.getElementById("allMovies").addEventListener("click", () => {
     window.location.href = `movies.html`
 });
 
@@ -23,7 +24,7 @@ function showTrendingMovies(movies) {
     movies.forEach((movie) => {
         const { id, overview, title, release_date, poster_path, vote_average } = movie;
 
-        if (vote_average >= 7) {
+        if (vote_average >= 6) {
             const singleMovie = document.createElement("div");
             singleMovie.innerHTML = `
             
@@ -45,7 +46,21 @@ function showTrendingMovies(movies) {
 }
 
 
+const venom = document.getElementById("venom");
+const insideOut = document.getElementById("insideOut");
+const deadpool = document.getElementById("deadpool");
 
+venom.addEventListener("click", () => {
+    window.location.href = `singleMovie.html?id=912649`
+})
+
+insideOut.addEventListener("click", () => {
+    window.location.href = `singleMovie.html?id=1022789`
+})
+
+deadpool.addEventListener("click", () => {
+    window.location.href = `singleMovie.html?id=533535`
+})
 
 rateFun = (rating) => {
     if (rating >= 8) {
