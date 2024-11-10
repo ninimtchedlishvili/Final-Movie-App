@@ -23,7 +23,7 @@ async function getSingleMovie(url) {
 
 
 function showSingleMovie(movie) {
-    const {id, overview, title, release_date, poster_path, vote_average } = movie;
+    const { id, overview, title, release_date, poster_path, vote_average } = movie;
     const movieTitle = document.getElementById("movieTitle");
 
     const singleMovie = document.createElement("div");
@@ -35,9 +35,10 @@ function showSingleMovie(movie) {
             
         </div>`
 
+
     document.getElementById("title").innerHTML = title;
     document.getElementById("movieTitle").innerHTML = title;
-    
+
     movieCointainer.appendChild(singleMovie);
 }
 
@@ -57,7 +58,7 @@ function seatSetting() {
         rowEl.className = "flex justify-center";
         const rowNum = i + 1;
         const rowNumStart = document.createElement("div");
-        rowNumStart.className = "text-center font-semibold text-xl text-gray-700 w-12 mt-5";
+        rowNumStart.className = "text-center font-semibold text-xl text-gray-700 w-12 mt-4";
         rowNumStart.textContent = i + 1;
         rowEl.appendChild(rowNumStart);
 
@@ -67,6 +68,10 @@ function seatSetting() {
             const seatIndex = i * seatPerRow + j + 1;
             const seatEl = document.createElement("div");
             seatEl.classList.add("seat");
+            if (seatIndex === 44 || seatIndex === 45 || seatIndex === 46 || seatIndex === 47) {
+                seatEl.classList.add("bg-[url('./src/img/accessibity.svg')]");
+            }
+
             seatEl.innerHTML = seatIndex;
 
             if (occupiedSeats.includes(seatIndex)) {
@@ -77,67 +82,74 @@ function seatSetting() {
             rowEl.appendChild(seatEl);
         }
         const rowNumEnd = document.createElement("div");
-        rowNumEnd.className = "text-center font-semibold text-xl text-gray-700 w-12 mt-5";
+        rowNumEnd.className = "text-center font-semibold text-xl text-gray-700 w-12 mt-4";
         rowNumEnd.textContent = i + 1;
         rowEl.appendChild(rowNumEnd);
         seatMap.appendChild(rowEl);
     }
 }
 
-
-let bookedElements = {}; 
+let bookedElements = {};
+let sum = 0;
 
 function seatSelect(rowNum, seatEl, seatIndex) {
+    const price = calculatePrice(seatIndex);
+    if (selectedSeats.length <= 5) {
 
-    if (!seatEl.classList.contains("occupied")) {
+        if (!seatEl.classList.contains("occupied")) {
 
-        if (seatEl.classList.contains("selected")) {
-            seatEl.classList.remove("selected");
+            if (seatEl.classList.contains("selected")) {
+                seatEl.classList.remove("selected");
 
-            const bookedSeats = document.getElementById("bookedSeats");
-            let booked = bookedElements[seatIndex]; 
-            if (booked) {
-                bookedSeats.removeChild(booked); 
-                delete bookedElements[seatIndex];
+                const bookedSeats = document.getElementById("bookedSeats");
+                let booked = bookedElements[seatIndex];
+                if (booked) {
+                    bookedSeats.removeChild(booked);
+                    delete bookedElements[seatIndex];
+                    sum -= price;
+                    const indexInArray = selectedSeats.indexOf(seatIndex);
+                    if (indexInArray !== -1) {
+                        selectedSeats.splice(indexInArray, 1);
+                    }
+                    console.log(selectedSeats);
+                }
+
+            } else if (!seatEl.classList.contains("selected")) {
+
+
+
+                seatEl.classList.add("selected");
+                selectedSeats.push(seatIndex);
+                sum += price;
+                const booked = document.createElement("div");
+
+                booked.innerHTML = `<p class="text-lg font-semibold">Row: ${rowNum} Seat: ${seatIndex} Price: $${price}</p>`;
+
+                bookedSeats.appendChild(booked);
+                bookedElements[seatIndex] = booked;
+
+                updateSummary(sum);
             }
-
-        } else if (!seatEl.classList.contains("selected")) {
-
-            if (rowNum === 1 || rowNum === 5) {
-                price = 15;
-            } else if (rowNum === 2 || rowNum === 4) {
-                price = 20;
-            } else if (rowNum === 3) {
-                price = 25;
-            }
-
-            seatEl.classList.add("selected");
-            selectedSeats.push(seatIndex);
-
-            const booked = document.createElement("div");
-
-            booked.innerHTML = `<p class="text-lg font-semibold">Row: ${rowNum} Seat: ${seatIndex} Price: $${price}</p>`;
-
-            bookedSeats.appendChild(booked);
-            bookedElements[seatIndex] = booked;
-            
-
         }
-        updateSummary();
 
+    } else {
+        alert("You can only buy 6 tickets at a time");
     }
 }
+
 
 
 seatSetting();
 const totalTickets = document.getElementById("total-tickets");
 const totalPrice = document.getElementById("total-price");
 
-
-function updateSummary() {
+// TODO: price calculation
+function updateSummary(price) {
     totalTickets.innerHTML = selectedSeats.length;
-    totalPrice.innerHTML = selectedSeats.length * 10;
+    totalPrice.innerHTML = price;
 }
+
+
 buyButton.addEventListener("click", () => {
     if (selectedSeats.length > 0) {
         window.location.href = `checkout.html`
@@ -146,3 +158,12 @@ buyButton.addEventListener("click", () => {
     }
 });
 
+function calculatePrice(seatIndex) {
+    if (seatIndex > 30) {
+        return 25;
+    } else if (seatIndex > 10) {
+        return 20;
+    } else {
+        return 15;
+    }
+}

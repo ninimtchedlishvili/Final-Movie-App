@@ -15,22 +15,41 @@
             class="w-full lg:w-1/3 flex justify-center items-center bg-gray-100 p-6 rounded-lg shadow-lg">
         </div>
 
-        <div class="w-full lg:w-2/3 bg-white p-8 rounded-lg shadow-lg">
-            <h2 class="text-2xl font-extrabold text-gray-800 mb-6" id="movieTitle">Blank Title</h2>
+        <div class="w-full lg:w-2/3 bg-white  p-8 rounded-lg shadow-lg">
+            <div class="flex justify-between items-center bg-white p-6 rounded-lg shadow-lg">
+                <h2 class="text-4xl font-bold text-gray-800 mb-6 tracking-wide" id="movieTitle">Blank Title</h2>
+                <div class="flex gap-12">
+                    <div class="flex flex-col justify-center items-center">
+                        <div class="seat w-10 h-10 bg-green-400 rounded-md mb-2 shadow-md transition-transform hover:scale-105"></div>
+                        <p class="text-sm text-gray-600 font-semibold">Available</p>
+                    </div>
+                    <div class="flex flex-col justify-center items-center">
+                        <div class="seat selected w-10 h-10 bg-yellow-400 rounded-md mb-2 shadow-md transition-transform hover:scale-105"></div>
+                        <p class="text-sm text-gray-600 font-semibold">Booked</p>
+                    </div>
+                    <div class="flex flex-col justify-center items-center">
+                        <div class="seat occupied w-10 h-10 bg-red-400 rounded-md mb-2 shadow-md transition-transform hover:scale-105"></div>
+                        <p class="text-sm text-gray-600 font-semibold">Sold</p>
+                    </div>
+                </div>
+            </div>
+
             <div id="seat-map" class="border rounded-lg p-4 bg-gray-50 shadow-inner mb-6"></div>
 
+
             <div class="flex justify-between items-center mb-6">
-                <div id="bookedSeats" class="text-lg lg:w-1/2 font-medium text-gray-700 pr-6 border-r-2 border-gray-200">
+                <div id="bookedSeats"
+                    class="text-lg lg:w-1/2 font-medium text-gray-700 pr-6 border-r-2 border-gray-200">
                     <!-- Content for booked seats (if any) -->
                 </div>
-                <div class="text-lg lg:w-1/2 font-medium text-gray-700 pl-6">
+                <div class="text-lg lg:w-1/2 font-medium text-gray-700 pl-6 ">
                     <div class="text-lg font-semibold text-gray-800">
                         Total Tickets: <span id="total-tickets" class="text-blue-600">0</span>
                     </div>
-                    <div class="text-lg font-semibold text-gray-800 mt-2">
+                    <div class="text-lg font-semibold text-gray-800 mt-2 pb-[30px]">
                         Total Price: $ <span id="total-price" class="text-green-600">0</span>
                     </div>
-            
+
                     <button id="buy-now"
                         class="mt-6  bg-gradient-to-r from-indigo-600 to-indigo-800 hover:from-indigo-700 hover:to-indigo-900 text-white font-bold py-3 px-10 rounded-lg transition duration-300 ease-in-out transform hover:scale-105 shadow-lg hover:shadow-2xl">
                         Buy Tickets
@@ -39,7 +58,6 @@
             </div>
         </div>
     </div>
-
 
 
     <script src="singleMovie.js"></script>
@@ -57,6 +75,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06);
         }
 
         .seat:hover {
@@ -70,14 +89,17 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06);
         }
 
         .seat.selected {
             background-color: lightcoral;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06);
         }
 
         .seat.occupied {
             background-color: lightblue;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06);
         }
     </style>
 </body>
