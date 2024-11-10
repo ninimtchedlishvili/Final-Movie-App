@@ -21,6 +21,12 @@ async function getSingleMovie(url) {
     showSingleMovie(singleMovieId);
 }
 
+fetch('./src/json/calendar.json')
+  .then(response => response.json())
+  .then(data => {
+    console.log(data);
+  })
+
 
 function showSingleMovie(movie) {
     const { id, overview, title, release_date, poster_path, vote_average } = movie;

@@ -4,7 +4,6 @@ const SEARCH_API = 'https://api.themoviedb.org/3/search/movie?api_key=3fd2be6f0c
 
 
 const main = document.getElementById("main");
-console.log(main);
 
 
 async function getMovies(url) {
@@ -12,24 +11,6 @@ async function getMovies(url) {
     const data = await result.json();
     showMovies(data.results);
 }
-
-const genres = {
-    28: "Action",
-    12: "Adventure",
-    16: "Animation",
-    18: "Drama",
-    27: "Horror",
-    35: "Comedy",
-    36: "History",
-    53: "Thriller",
-    80: "Crime",
-    878: "Science Fiction",
-    9648: "Mystery",
-    10749: "Romance",
-    10751: "Family"
-};
-
-
 
 getMovies(API_URL);
 
@@ -66,23 +47,17 @@ function showMovies(movies) {
         `
         main.appendChild(singleMovie);
 
-        // const filterBtn = document.getElementById("filterBtn");
-
-        // filterBtn.addEventListener("click", (genreId) => {
-        //     main.innerHTML = "";
-        //     const key = genres.key;
-        //     if(genre_ids.includes(key)){
-        //         main.appendChild(singleMovie);
-
-        //     }
-        // })
-
-
         const learnMoreBtn = singleMovie.querySelector(".learnMore")
 
         learnMoreBtn.addEventListener("click", () => {
             window.location.href = `singleMovie.html?id=${id}`
         })
+
+
+
+
+
+
     });
 
 }
@@ -106,5 +81,51 @@ form.addEventListener("submit", (e) => {
     getMovies(SEARCH_API + searchTerm);
 })
 
+const genres = {
+    28: "Action",
+    12: "Adventure",
+    16: "Animation",
+    18: "Drama",
+    27: "Horror",
+    35: "Comedy",
+    36: "History",
+    53: "Thriller",
+    80: "Crime",
+    878: "Science Fiction",
+    9648: "Mystery",
+    10749: "Romance",
+    10751: "Family"
+};
 
 
+filterFun(genres);
+
+async function filterFun(filters) {
+    const filtersContainer = document.getElementById("filters");
+    for (const [id, value] of Object.entries(filters)) {
+        const filterBtn = document.createElement("div");
+        filterBtn.innerHTML = `
+        <button id="filterBtn-${id}" 
+            class="bg-gradient-to-r from-indigo-600 to-indigo-800 hover:from-indigo-700 hover:to-indigo-900 text-white font-bold py-2 px-5 rounded-lg transition duration-300 ease-in-out transform hover:scale-105 shadow-lg hover:shadow-2xl">
+            ${value}
+        </button>
+    `;
+
+        filtersContainer.appendChild(filterBtn);
+
+
+        filterBtn.addEventListener("click", async () => {
+            main.innerHTML = "";
+            const selectedGenreId = parseInt(id);
+
+
+            const result = await fetch(API_URL);
+            const data = await result.json();
+            const movies = data.results || [];
+            const filterMovies = movies.filter(movie => movie.genre_ids.includes(selectedGenreId));
+
+            showMovies(filterMovies);
+        });
+    }
+
+}
