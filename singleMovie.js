@@ -128,7 +128,7 @@ function seatSelect(rowNum, seatEl, seatIndex) {
                     if (indexInArray !== -1) {
                         selectedSeats.splice(indexInArray, 1);
                     }
-                    console.log(selectedSeats);
+                    // console.log(selectedSeats);
                 }
 
             } else if (!seatEl.classList.contains("selected")) {
@@ -160,16 +160,32 @@ const totalPrice = document.getElementById("total-price");
 function updateSummary(price) {
     totalTickets.innerHTML = selectedSeats.length;
     totalPrice.innerHTML = price;
+
+    // console.log(seats);
+    cart();
+
+    function cart () {
+        const checkoutUrl = new URL(window.location.href);
+        checkoutUrl.searchParams.set("price", price);
+        checkoutUrl.searchParams.set("tickets",  selectedSeats.length);
+        checkoutUrl.searchParams.delete("id");
+
+        const newURL = checkoutUrl.search; 
+        console.log(`checkout.html${newURL}`);
+        // window.location.href = ;
+
+        buyButton.addEventListener("click", () => {
+            if (selectedSeats.length > 0) {
+                window.location.href = `checkout.html${newURL}`
+            } else {
+                alert("Please select a seat");
+            }
+        });
+    }
 }
 
 
-buyButton.addEventListener("click", () => {
-    if (selectedSeats.length > 0) {
-        window.location.href = `checkout.html`
-    } else {
-        alert("Please select a seat");
-    }
-});
+
 
 function calculatePrice(seatIndex) {
     if (seatIndex > 30) {
@@ -237,7 +253,7 @@ fetch('./src/json/calendar.json')
 
             if (selectedSession) {
                 occupiedSeats = selectedSession.occupiedSeats || [];
-                console.log("Occupied Seats for this session:", occupiedSeats);
+                // console.log("Occupied Seats for this session:", occupiedSeats);
                 
                 const seatMap = document.getElementById("seat-map");
                 seatMap.style.display = "block";  
@@ -299,3 +315,14 @@ function updateSeatMap() {
         seatMap.appendChild(rowEl);
     }
 }
+
+// TODO: Update URL to set price, tickets and bookedseats to checkout
+
+// const el = bookedSeats.innerHTML
+// console.log(selectedSeats);
+
+
+
+const price = document.getElementById("total-price");
+// console.log(price.innerHTML);
+
