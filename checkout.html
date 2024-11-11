@@ -4,21 +4,46 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+    rel="stylesheet">
   <title>Document</title>
 </head>
 
-<body class="bg-[#121426]">
+<body class="bg-[#121426] font-[Montserrat]">
   <div class="font-[sans-serif] lg:flex lg:items-center lg:justify-center lg:h-screen max-lg:py-4">
     <div class="bg-gray-500 p-8 w-full max-w-5xl max-lg:max-w-xl mx-auto rounded-md">
       <h2 class="text-3xl font-extrabold text-black text-center">Checkout</h2>
 
       <div class="grid lg:grid-cols-3 gap-6 max-lg:gap-8 mt-16">
+
+        <div class="bg-white p-6 rounded-md max-lg:-order-1">
+          <h3 class="text-lg font-bold text-gray-800">Summary</h3>
+
+          <ul class="text-gray-800 mt-6 space-y-3">
+            <li class="flex flex-wrap gap-4 text-sm">Total Price:<span id="total" class="ml-auto font-bold">$0.00</span>
+            </li>
+            <div class="flex justify-between">
+              <input type="text" id="discountCode" placeholder="Coupon Code"
+                class="px-4 py-1.5 w-2/3 bg-white text-gray-800 text-sm border rounded-md focus:border-[#007bff] outline-none" />
+              <span><button type="button" id="applyCoupon"
+                  class="px-3 py-1.5 text-sm tracking-wide bg-blue-600 text-white rounded-md hover:bg-blue-700">Apply</button></span>
+            </div>
+            <li class="flex flex-wrap gap-4 text-sm">Discount: <span id="discount"
+                class="ml-auto font-bold">$0.00</span></li>
+
+            <hr />
+            <li class="flex flex-wrap gap-4 text-base font-bold">Total <span id="finalPrice"
+                class="ml-auto">$0.00</span></li>
+          </ul>
+        </div>
         <div class="lg:col-span-2">
           <h3 class="text-lg font-bold text-black">Choose your payment method</h3>
 
           <div class="grid gap-4 sm:grid-cols-2 mt-4">
             <div class="flex items-center">
-              <input type="radio"  name="payment" class="w-5 h-5 cursor-pointer" id="card" checked />
+              <input type="radio" name="payment" class="w-5 h-5 cursor-pointer" id="card" checked />
               <label for="card" class="ml-4 flex gap-2 cursor-pointer">
                 <img src="https://readymadeui.com/images/visa.webp" class="w-12" alt="card1" />
                 <img src="https://readymadeui.com/images/american-express.webp" class="w-12" alt="card2" />
@@ -65,32 +90,9 @@
             </div>
           </form>
         </div>
-
-        <div class="bg-white p-6 rounded-md max-lg:-order-1">
-          <h3 class="text-lg font-bold text-gray-800">Summary</h3>
-          <ul class="text-gray-800 mt-6 space-y-3">
-            <li class="flex flex-wrap gap-4 text-sm">Total Price:<span id="total" class="ml-auto font-bold">$0.00</span>
-            </li>
-            <div class="flex justify-between">
-              <input type="text" id="discountCode" placeholder="Coupon Code"
-                class="px-4 py-1.5 w-2/3 bg-white text-gray-800 text-sm border rounded-md focus:border-[#007bff] outline-none" />
-              <span><button type="button" id="applyCoupon"
-                  class="px-3 py-1.5 text-sm tracking-wide bg-blue-600 text-white rounded-md hover:bg-blue-700">Apply</button></span>
-            </div>
-            <li class="flex flex-wrap gap-4 text-sm">Discount: <span id="discount"
-                class="ml-auto font-bold">$0.00</span></li>
-
-            <hr />
-            <li class="flex flex-wrap gap-4 text-base font-bold">Total <span id="finalPrice"
-                class="ml-auto">$0.00</span></li>
-          </ul>
-        </div>
       </div>
     </div>
   </div>
-
-
-
 
   <script src="checkOut.js"></script>
   <script src="https://cdn.tailwindcss.com"></script>

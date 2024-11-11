@@ -29,7 +29,7 @@ function showSingleMovie(movie) {
 
     const singleMovie = document.createElement("div");
     singleMovie.innerHTML = `
-        <div class="py-3 sm:max-w-xl sm:mx-auto">
+        <div class=" sm:max-w-xl sm:mx-auto">
             <div class="overflow-visible">
                 <img class="rounded-3xl shadow-lg" src="${IMG_PATH + poster_path}" alt="">
             </div>
@@ -39,7 +39,7 @@ function showSingleMovie(movie) {
                         ${overview}
                     </p>
                     <div
-                        class="absolute left-0 top-full mt-2 w-full p-2 bg-black text-white text-sm rounded-md opacity-0 group-hover:opacity-100 group-hover:visible transition-opacity duration-200">
+                        class="absolute left-0 top-full  w-full bg-black text-white text-sm rounded-md opacity-0 group-hover:opacity-100 group-hover:visible transition-opacity duration-200">
                         ${overview}
                     </div>
                 </div>

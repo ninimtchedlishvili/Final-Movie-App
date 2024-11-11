@@ -4,76 +4,113 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
     <title id="title"></title>
 </head>
 
 
-<body class="bg-[#121426] min-h-screen flex flex-col justify-center items-center">
-    <div class="bg-gray-800 w-full max-w-7xl p-8 bg-white shadow-xl rounded-3xl mt-16 flex flex-col lg:flex-row gap-10">
-
-        <div id="movie-container"
-            class="w-full lg:w-1/3 flex justify-center items-center bg-gray-100 p-6 rounded-lg shadow-lg">
+<body class="font-[Montserrat] bg-[#121426] ">
+    <nav class="text-white">
+        <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto pt-4">
+            <a href="" class="flex items-center space-x-3 rtl:space-x-reverse">
+                <img src="https://flowbite.com/docs/images/logo.svg" class="h-8" alt="Flowbite Logo" />
+                <span class="self-center text-2xl font-semibold whitespace-nowrap">Nini Production</span>
+            </a>
+            <button data-collapse-toggle="navbar-default" type="button"
+                class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
+                aria-controls="navbar-default" aria-expanded="false">
+                <span class="sr-only">Open main menu</span>
+                <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                    viewBox="0 0 17 14">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M1 1h15M1 7h15M1 13h15" />
+                </svg>
+            </button>
+            <div class="hidden w-full md:block md:w-auto" id="navbar-default">
+                <ul
+                    class="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg  md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 ">
+                    <li>
+                        <a id="logIn" href="#" class="block py-2 px-3 text-white  rounded  md:text-white-700 md:p-0 "
+                            aria-current="page">Log In</a>
+                    </li>
+                    <li>
+                        <a id="signUp" href="#"
+                            class="block py-2 px-3 text-white-900   md:hover:text-white-700 md:p-0">Sign Up</a>
+                    </li>
+                    </li>
+                </ul>
+            </div>
         </div>
-
-        <div class="w-full lg:w-2/3 bg-white p-8 rounded-lg shadow-lg">
-            <div class="flex justify-between items-center bg-white p-6 rounded-lg shadow-lg">
-                <div>
-                    <h2 class="text-4xl font-bold text-gray-800  tracking-wide" id="movieTitle">Blank Title</h2>
-                    <div id="imdb"></div>
-                </div>
-
-                <div class="flex gap-5">
-                    <div class="flex flex-col justify-center items-center">
-                        <div
-                            class="seat w-10 h-10 bg-green-400 rounded-md mb-2 shadow-md transition-transform hover:scale-105">
-                        </div>
-                        <p class="text-sm text-gray-600 font-semibold">Available</p>
-                    </div>
-                    <div class="flex flex-col justify-center items-center">
-                        <div
-                            class="seat selected w-10 h-10 bg-yellow-400 rounded-md mb-2 shadow-md transition-transform hover:scale-105">
-                        </div>
-                        <p class="text-sm text-gray-600 font-semibold">Booked</p>
-                    </div>
-                    <div class="flex flex-col justify-center items-center">
-                        <div
-                            class="seat occupied w-10 h-10 bg-red-400 rounded-md mb-2 shadow-md transition-transform hover:scale-105">
-                        </div>
-                        <p class="text-sm text-gray-600 font-semibold">Sold</p>
-                    </div>
-                </div>
+    </nav>
+    <div class=" flex flex-col justify-center items-center">
+        <div class=" bg-gray-800 w-full max-w-7xl px-8 bg-white shadow-xl rounded-3xl mt-8 flex flex-col lg:flex-row gap-10">
+            <div id="movie-container"
+                class="w-full lg:w-1/3 flex justify-center items-center bg-gray-100 p-6 rounded-lg shadow-lg">
             </div>
 
-            <div class="flex flex-col  border rounded-lg p-4 bg-gray-50 shadow-inner mb-6">
-                <div class="flex gap-5 justify-start ml-[70px]">
-                    <select id="dayDropdown"
-                        class="w-2/5 p-4 bg-gray-100 border border-gray-300 rounded-lg text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent hover:bg-gray-200 transition ease-in-out duration-150">
-                    </select>
-
-                    <select id="sessionDropdown"
-                        class="w-1/3 p-4 bg-gray-100 border border-gray-300 rounded-lg text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent hover:bg-gray-200 transition ease-in-out duration-150">
-                    </select>
-                </div>
-                <div id="seat-map" class="mt-5"></div>
-            </div>
-
-
-            <div class="flex justify-between items-center mb-6" >
-                <div id="bookedSeats"
-                    class="text-lg lg:w-1/2 font-medium text-gray-700 pr-6 border-r-2 border-gray-200">
-                </div>
-                <div id="bookedInfo" class="text-lg lg:w-1/2 font-medium text-gray-700 pl-6 ">
-                    <div class="text-lg font-semibold text-gray-800">
-                        Total Tickets: <span id="total-tickets" class="text-blue-600">0</span>
-                    </div>
-                    <div class="text-lg font-semibold text-gray-800 mt-2 pb-[30px]">
-                        Total Price: $ <span id="total-price" class="text-green-600">0</span>
+            <div class="w-full lg:w-2/3 bg-white rounded-lg shadow-lg">
+                <div class="flex justify-between items-center bg-white p-6 rounded-lg shadow-lg">
+                    <div>
+                        <h2 class="text-4xl font-bold text-gray-800  tracking-wide" id="movieTitle">Blank Title</h2>
+                        <div id="imdb"></div>
                     </div>
 
-                    <button id="buy-now"
-                        class="mt-6  bg-gradient-to-r from-indigo-600 to-indigo-800 hover:from-indigo-700 hover:to-indigo-900 text-white font-bold py-3 px-10 rounded-lg transition duration-300 ease-in-out transform hover:scale-105 shadow-lg hover:shadow-2xl">
-                        Buy Tickets
-                    </button>
+                    <div class="flex gap-5">
+                        <div class="flex flex-col justify-center items-center">
+                            <div
+                                class="seat w-10 h-10 bg-green-400 rounded-md mb-2 shadow-md transition-transform hover:scale-105">
+                            </div>
+                            <p class="text-sm text-gray-600 font-semibold">Available</p>
+                        </div>
+                        <div class="flex flex-col justify-center items-center">
+                            <div
+                                class="seat selected w-10 h-10 bg-yellow-400 rounded-md mb-2 shadow-md transition-transform hover:scale-105">
+                            </div>
+                            <p class="text-sm text-gray-600 font-semibold">Booked</p>
+                        </div>
+                        <div class="flex flex-col justify-center items-center">
+                            <div
+                                class="seat occupied w-10 h-10 bg-red-400 rounded-md mb-2 shadow-md transition-transform hover:scale-105">
+                            </div>
+                            <p class="text-sm text-gray-600 font-semibold">Sold</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex flex-col  border rounded-lg p-4 bg-gray-50 shadow-inner mb-6">
+                    <div class="flex gap-5 justify-start ml-[70px]">
+                        <select id="dayDropdown"
+                            class="w-2/5 p-4 bg-gray-100 border border-gray-300 rounded-lg text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent hover:bg-gray-200 transition ease-in-out duration-150">
+                        </select>
+
+                        <select id="sessionDropdown"
+                            class="w-1/3 p-4 bg-gray-100 border border-gray-300 rounded-lg text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent hover:bg-gray-200 transition ease-in-out duration-150">
+                        </select>
+                    </div>
+                    <div id="seat-map" class="mt-5"></div>
+                </div>
+
+
+                <div class="flex justify-between items-center mb-6">
+                    <div id="bookedSeats"
+                        class="text-lg lg:w-1/2 font-medium text-gray-700 pr-6 border-r-2 border-gray-200">
+                    </div>
+                    <div id="bookedInfo" class="text-lg lg:w-1/2 font-medium text-gray-700 pl-6 ">
+                        <div class="text-lg font-semibold text-gray-800">
+                            Total Tickets: <span id="total-tickets" class="text-blue-600">0</span>
+                        </div>
+                        <div class="text-lg font-semibold text-gray-800 mt-2 pb-[30px]">
+                            Total Price: $ <span id="total-price" class="text-green-600">0</span>
+                        </div>
+
+                        <button id="buy-now"
+                            class="mt-6  bg-gradient-to-r from-indigo-600 to-indigo-800 hover:from-indigo-700 hover:to-indigo-900 text-white font-bold py-3 px-10 rounded-lg transition duration-300 ease-in-out transform hover:scale-105 shadow-lg hover:shadow-2xl">
+                            Buy Tickets
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -125,4 +162,3 @@
 </body>
 
 </html>
-

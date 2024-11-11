@@ -4,17 +4,19 @@ const finalPrice = document.getElementById("finalPrice");
 const discountCode = document.getElementById("discountCode"); //input
 const applyCoupon = document.getElementById("applyCoupon"); //button
 
+
+
 const searchParams = new URLSearchParams(window.location.search);
 let price = parseFloat(searchParams.get("price"));
 const tickets = parseInt(searchParams.get("tickets"));
 
-updatePrices();
+total.innerHTML = `$${price.toFixed(1)}`;
 
 applyCoupon.addEventListener("click", () => {
     const couponCode = discountCode.value.trim();
     console.log(couponCode);
     
-    if (couponCode === "coupon") {
+    if (couponCode === "damikeli") {
         discount.innerHTML = "10%";
         price *= 0.9;
     } else {
@@ -26,7 +28,7 @@ applyCoupon.addEventListener("click", () => {
 
 
 function updatePrices() {
-    total.innerHTML = `$${price.toFixed(1)}`;
+    // total.innerHTML = `$${price.toFixed(1)}`;
     finalPrice.innerHTML = `$${price.toFixed(1)}`;
 }
 
