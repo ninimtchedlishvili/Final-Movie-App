@@ -15,34 +15,54 @@
             class="w-full lg:w-1/3 flex justify-center items-center bg-gray-100 p-6 rounded-lg shadow-lg">
         </div>
 
-        <div class="w-full lg:w-2/3 bg-white  p-8 rounded-lg shadow-lg">
+        <div class="w-full lg:w-2/3 bg-white p-8 rounded-lg shadow-lg">
             <div class="flex justify-between items-center bg-white p-6 rounded-lg shadow-lg">
-                <h2 class="text-4xl font-bold text-gray-800 mb-6 tracking-wide" id="movieTitle">Blank Title</h2>
-                <div class="flex gap-12">
+                <div>
+                    <h2 class="text-4xl font-bold text-gray-800  tracking-wide" id="movieTitle">Blank Title</h2>
+                    <div id="imdb"></div>
+                </div>
+
+                <div class="flex gap-5">
                     <div class="flex flex-col justify-center items-center">
-                        <div class="seat w-10 h-10 bg-green-400 rounded-md mb-2 shadow-md transition-transform hover:scale-105"></div>
+                        <div
+                            class="seat w-10 h-10 bg-green-400 rounded-md mb-2 shadow-md transition-transform hover:scale-105">
+                        </div>
                         <p class="text-sm text-gray-600 font-semibold">Available</p>
                     </div>
                     <div class="flex flex-col justify-center items-center">
-                        <div class="seat selected w-10 h-10 bg-yellow-400 rounded-md mb-2 shadow-md transition-transform hover:scale-105"></div>
+                        <div
+                            class="seat selected w-10 h-10 bg-yellow-400 rounded-md mb-2 shadow-md transition-transform hover:scale-105">
+                        </div>
                         <p class="text-sm text-gray-600 font-semibold">Booked</p>
                     </div>
                     <div class="flex flex-col justify-center items-center">
-                        <div class="seat occupied w-10 h-10 bg-red-400 rounded-md mb-2 shadow-md transition-transform hover:scale-105"></div>
+                        <div
+                            class="seat occupied w-10 h-10 bg-red-400 rounded-md mb-2 shadow-md transition-transform hover:scale-105">
+                        </div>
                         <p class="text-sm text-gray-600 font-semibold">Sold</p>
                     </div>
                 </div>
             </div>
 
-            <div id="seat-map" class="border rounded-lg p-4 bg-gray-50 shadow-inner mb-6"></div>
+            <div class="flex flex-col  border rounded-lg p-4 bg-gray-50 shadow-inner mb-6">
+                <div class="flex gap-5 justify-start ml-[70px]">
+                    <select id="dayDropdown"
+                        class="w-2/5 p-4 bg-gray-100 border border-gray-300 rounded-lg text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent hover:bg-gray-200 transition ease-in-out duration-150">
+                    </select>
+
+                    <select id="sessionDropdown"
+                        class="w-1/3 p-4 bg-gray-100 border border-gray-300 rounded-lg text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent hover:bg-gray-200 transition ease-in-out duration-150">
+                    </select>
+                </div>
+                <div id="seat-map" class="mt-5"></div>
+            </div>
 
 
-            <div class="flex justify-between items-center mb-6">
+            <div class="flex justify-between items-center mb-6" >
                 <div id="bookedSeats"
                     class="text-lg lg:w-1/2 font-medium text-gray-700 pr-6 border-r-2 border-gray-200">
-                    <!-- Content for booked seats (if any) -->
                 </div>
-                <div class="text-lg lg:w-1/2 font-medium text-gray-700 pl-6 ">
+                <div id="bookedInfo" class="text-lg lg:w-1/2 font-medium text-gray-700 pl-6 ">
                     <div class="text-lg font-semibold text-gray-800">
                         Total Tickets: <span id="total-tickets" class="text-blue-600">0</span>
                     </div>
@@ -105,3 +125,4 @@
 </body>
 
 </html>
+

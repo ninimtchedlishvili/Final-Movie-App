@@ -8,6 +8,7 @@ const seatMap = document.getElementById("seat-map");
 const row = document.getElementById("row");
 const seat = document.getElementById("seat");
 
+
 const url = window.location.href;
 const urlParam = new URLSearchParams(window.location.search);
 const movieId = urlParam.get("id");
@@ -21,12 +22,6 @@ async function getSingleMovie(url) {
     showSingleMovie(singleMovieId);
 }
 
-fetch('./src/json/calendar.json')
-  .then(response => response.json())
-  .then(data => {
-    console.log(data);
-  })
-
 
 function showSingleMovie(movie) {
     const { id, overview, title, release_date, poster_path, vote_average } = movie;
@@ -38,9 +33,24 @@ function showSingleMovie(movie) {
             <div class="overflow-visible">
                 <img class="rounded-3xl shadow-lg" src="${IMG_PATH + poster_path}" alt="">
             </div>
-            
+            <div class="flex flex-col space-y-2 mt-2">
+                <div class="relative group">
+                    <p class="text-black-300 max-h-32 overflow-y-hidden text-m ">
+                        ${overview}
+                    </p>
+                    <div
+                        class="absolute left-0 top-full mt-2 w-full p-2 bg-black text-white text-sm rounded-md opacity-0 group-hover:opacity-100 group-hover:visible transition-opacity duration-200">
+                        ${overview}
+                    </div>
+                </div>
+            </div>
         </div>`
 
+        const imdb = document.getElementById("imdb");
+        imdb.innerHTML = `
+        <div class="flex justify-between items-start">
+            <p class="text-black text-m">IMDb: ${Math.round(vote_average)}.0</p>
+        </div>`
 
     document.getElementById("title").innerHTML = title;
     document.getElementById("movieTitle").innerHTML = title;
@@ -48,24 +58,25 @@ function showSingleMovie(movie) {
     movieCointainer.appendChild(singleMovie);
 }
 
-
-
 const SingleTicketPrice = 10;
-const occupiedSeats = [1, 8, 15, 16, 17, 20, 22, 25, 34, 35, 36, 41, 42];
-const selectedSeats = [];
+let selectedSeats = [];
 
 const rows = 5;
 const seatPerRow = 10;
 
 function seatSetting() {
+    seatMap.style.display = "none";
+    bookedInfo.style.display = "none";
+
 
     for (let i = 0; i < rows; i++) {
         const rowEl = document.createElement("div");
         rowEl.className = "flex justify-center";
         const rowNum = i + 1;
+
         const rowNumStart = document.createElement("div");
         rowNumStart.className = "text-center font-semibold text-xl text-gray-700 w-12 mt-4";
-        rowNumStart.textContent = i + 1;
+        rowNumStart.textContent = rowNum;
         rowEl.appendChild(rowNumStart);
 
 
@@ -74,22 +85,22 @@ function seatSetting() {
             const seatIndex = i * seatPerRow + j + 1;
             const seatEl = document.createElement("div");
             seatEl.classList.add("seat");
+
+
+
             if (seatIndex === 44 || seatIndex === 45 || seatIndex === 46 || seatIndex === 47) {
                 seatEl.classList.add("bg-[url('./src/img/accessibity.svg')]");
             }
 
             seatEl.innerHTML = seatIndex;
 
-            if (occupiedSeats.includes(seatIndex)) {
-                seatEl.classList.add("occupied");
-            }
-
             seatEl.addEventListener("click", () => seatSelect(rowNum, seatEl, seatIndex));
             rowEl.appendChild(seatEl);
         }
+
         const rowNumEnd = document.createElement("div");
         rowNumEnd.className = "text-center font-semibold text-xl text-gray-700 w-12 mt-4";
-        rowNumEnd.textContent = i + 1;
+        rowNumEnd.textContent = rowNum;
         rowEl.appendChild(rowNumEnd);
         seatMap.appendChild(rowEl);
     }
@@ -121,9 +132,6 @@ function seatSelect(rowNum, seatEl, seatIndex) {
                 }
 
             } else if (!seatEl.classList.contains("selected")) {
-
-
-
                 seatEl.classList.add("selected");
                 selectedSeats.push(seatIndex);
                 sum += price;
@@ -149,7 +157,6 @@ seatSetting();
 const totalTickets = document.getElementById("total-tickets");
 const totalPrice = document.getElementById("total-price");
 
-// TODO: price calculation
 function updateSummary(price) {
     totalTickets.innerHTML = selectedSeats.length;
     totalPrice.innerHTML = price;
@@ -171,5 +178,124 @@ function calculatePrice(seatIndex) {
         return 20;
     } else {
         return 15;
+    }
+}
+
+let occupiedSeats = [];
+
+fetch('./src/json/calendar.json')
+    .then(response => response.json())
+    .then(data => {
+        const calendarData = data.calendar;
+        const dayDropdown = document.getElementById("dayDropdown");
+        const sessionDropdown = document.getElementById("sessionDropdown");
+
+        calendarData.forEach(day => {
+            const option = document.createElement("option");
+            option.value = day.date;
+            option.textContent = `${day.day} (${day.date})`;
+            option.className = `weekday ${day.day.toLowerCase()}`;
+            dayDropdown.appendChild(option);
+        });
+
+
+        dayDropdown.addEventListener("change", function () {
+            const selectedDay = this.value;
+
+            while (selectedSeats.length > 0) {
+                selectedSeats.pop();
+            }
+            bookedSeats.innerHTML = '';
+            sessionDropdown.innerHTML = "<option value=''>Select a Session</option>";
+            const selectedDayData = calendarData.find(day => day.date === selectedDay);
+
+            if (selectedDayData) {
+                selectedDayData.sessions.forEach(session => {
+                    const option = document.createElement("option");
+                    option.value = session.time;
+                    option.textContent = `${session.time}`;
+                    sessionDropdown.appendChild(option);
+                });
+            }
+            updateSeatMap();
+
+        });
+
+        sessionDropdown.addEventListener("change", function () {
+            const selectedSessionTime = this.value;
+            const selectedDay = dayDropdown.value;
+
+            const selectedDayData = calendarData.find(day => day.date === selectedDay);
+            const selectedSession = selectedDayData?.sessions.find(session => session.time === selectedSessionTime);
+
+            // seatMap.style.display = "flex ";
+
+            while (selectedSeats.length > 0) {
+                selectedSeats.pop();
+            }
+            bookedSeats.innerHTML = '';
+
+            if (selectedSession) {
+                occupiedSeats = selectedSession.occupiedSeats || [];
+                console.log("Occupied Seats for this session:", occupiedSeats);
+                
+                const seatMap = document.getElementById("seat-map");
+                seatMap.style.display = "block";  
+
+                const bookedInfo = document.getElementById("bookedInfo");
+                bookedInfo.style.display = "block"; 
+                updateSeatMap();
+            }
+        });
+
+
+
+        if (calendarData.length > 0) {
+            dayDropdown.dispatchEvent(new Event('change'));
+        }
+    })
+
+
+
+function updateSeatMap() {
+    const seatMap = document.getElementById("seat-map");
+    seatMap.innerHTML = "";
+
+
+    for (let i = 0; i < rows; i++) {
+        const rowEl = document.createElement("div");
+        rowEl.className = "flex justify-center";
+        const rowNum = i + 1;
+
+        const rowNumStart = document.createElement("div");
+        rowNumStart.className = "text-center font-semibold text-xl text-gray-700 w-12 mt-4";
+        rowNumStart.textContent = rowNum;
+        rowEl.appendChild(rowNumStart);
+
+        for (let j = 0; j < seatPerRow; j++) {
+            const seatIndex = i * seatPerRow + j + 1;
+            const seatEl = document.createElement("div");
+            seatEl.classList.add("seat");
+
+            if (occupiedSeats.includes(seatIndex)) {
+                seatEl.classList.add("occupied");
+            }
+
+            if (seatIndex === 44 || seatIndex === 45 || seatIndex === 46 || seatIndex === 47) {
+                seatEl.classList.add("bg-[url('./src/img/accessibity.svg')]");
+            }
+
+            seatEl.innerHTML = seatIndex;
+
+            seatEl.addEventListener("click", () => seatSelect(rowNum, seatEl, seatIndex));
+            rowEl.appendChild(seatEl);
+        }
+
+        const rowNumEnd = document.createElement("div");
+        rowNumEnd.className = "text-center font-semibold text-xl text-gray-700 w-12 mt-4";
+        rowNumEnd.textContent = rowNum;
+        rowEl.appendChild(rowNumEnd);
+
+        seatMap.appendChild(rowEl);
     }
 }
