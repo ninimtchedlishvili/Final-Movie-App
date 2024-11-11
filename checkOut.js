@@ -28,7 +28,6 @@ applyCoupon.addEventListener("click", () => {
 
 
 function updatePrices() {
-    // total.innerHTML = `$${price.toFixed(1)}`;
     finalPrice.innerHTML = `$${price.toFixed(1)}`;
 }
 

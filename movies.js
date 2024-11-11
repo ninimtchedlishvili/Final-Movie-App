@@ -129,3 +129,11 @@ async function filterFun(filters) {
     }
 
 }
+
+document.getElementById("logIn").addEventListener("click", () => {
+    window.location.href = `logIn.html`
+});
+
+document.getElementById("signUp").addEventListener("click", () => {
+    window.location.href = `signUp.html`
+});

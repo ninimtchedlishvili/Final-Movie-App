@@ -316,13 +316,13 @@ function updateSeatMap() {
     }
 }
 
-// TODO: Update URL to set price, tickets and bookedseats to checkout
-
-// const el = bookedSeats.innerHTML
-// console.log(selectedSeats);
-
-
 
 const price = document.getElementById("total-price");
-// console.log(price.innerHTML);
 
+document.getElementById("logIn").addEventListener("click", () => {
+    window.location.href = `logIn.html`
+});
+
+document.getElementById("signUp").addEventListener("click", () => {
+    window.location.href = `signUp.html`
+});

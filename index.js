@@ -6,6 +6,7 @@ const SEARCH_API = 'https://api.themoviedb.org/3/search/movie?api_key=3fd2be6f0c
 
 document.getElementById("allMovies").addEventListener("click", () => {
     window.location.href = `movies.html`
+    
 });
 
 document.getElementById("logIn").addEventListener("click", () => {
@@ -79,3 +80,4 @@ rateFun = (rating) => {
         return "bg-red-400";
     }
 };
+

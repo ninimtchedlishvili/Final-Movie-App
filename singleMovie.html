@@ -8,12 +8,13 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet">
+        <link rel="stylesheet" href="./src/styles/singleMovie.css">
     <title id="title"></title>
 </head>
 
 
 <body class="font-[Montserrat] bg-[#121426] ">
-    <nav class="text-white">
+    <nav class="text-white mt-[15px]">
         <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto pt-4">
             <a href="" class="flex items-center space-x-3 rtl:space-x-reverse">
                 <img src="https://flowbite.com/docs/images/logo.svg" class="h-8" alt="Flowbite Logo" />
@@ -61,19 +62,19 @@
                     <div class="flex gap-5">
                         <div class="flex flex-col justify-center items-center">
                             <div
-                                class="seat w-10 h-10 bg-green-400 rounded-md mb-2 shadow-md transition-transform hover:scale-105">
+                                class="seat w-10 h-10 bg-grey-400 rounded-md mb-2 shadow-md  ">
                             </div>
                             <p class="text-sm text-gray-600 font-semibold">Available</p>
                         </div>
                         <div class="flex flex-col justify-center items-center">
                             <div
-                                class="seat selected w-10 h-10 bg-yellow-400 rounded-md mb-2 shadow-md transition-transform hover:scale-105">
+                                class="seat selected w-10 h-10 bg-yellow-400 rounded-md mb-2 shadow-md  ">
                             </div>
                             <p class="text-sm text-gray-600 font-semibold">Booked</p>
                         </div>
                         <div class="flex flex-col justify-center items-center">
                             <div
-                                class="seat occupied w-10 h-10 bg-red-400 rounded-md mb-2 shadow-md transition-transform hover:scale-105">
+                                class="seat occupied w-10 h-10 bg-red-400 rounded-md mb-2 shadow-md  ">
                             </div>
                             <p class="text-sm text-gray-600 font-semibold">Sold</p>
                         </div>
@@ -120,45 +121,7 @@
     <script src="singleMovie.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <style>
-        .seat {
-            width: 45px;
-            height: 45px;
-            background-color: #ccc;
-            margin: 5px;
-            display: inline-block;
-            cursor: pointer;
-            border-radius: 10px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06);
-        }
-
-        .seat:hover {
-            width: 45px;
-            height: 45px;
-            background-color: grey;
-            margin: 5px;
-            display: inline-block;
-            cursor: pointer;
-            border-radius: 10px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06);
-        }
-
-        .seat.selected {
-            background-color: lightcoral;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06);
-        }
-
-        .seat.occupied {
-            background-color: lightblue;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06);
-        }
-    </style>
+    
 </body>
 
 </html>
