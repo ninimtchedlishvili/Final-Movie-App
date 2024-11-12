@@ -12,7 +12,49 @@
 </head>
 
 <body class="bg-[#121426] font-[Montserrat]">
-  <div class=" lg:flex lg:items-center lg:justify-center lg:h-screen max-lg:py-4">
+  <nav class="text-white">
+    <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+        <a href="" class="flex items-center space-x-3 rtl:space-x-reverse">
+            <img src="https://flowbite.com/docs/images/logo.svg" class="h-8" alt="Flowbite Logo" />
+            <span class="self-center text-2xl font-semibold whitespace-nowrap">Nini Production</span>
+        </a>
+        <button data-collapse-toggle="navbar-default" type="button"
+            class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
+            aria-controls="navbar-default" aria-expanded="false">
+            <span class="sr-only">Open main menu</span>
+            <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                viewBox="0 0 17 14">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M1 1h15M1 7h15M1 13h15" />
+            </svg>
+        </button>
+        <div class="hidden w-full md:block md:w-auto" id="navbar-default">
+            <ul
+                class="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg  md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 ">
+                
+                <li>
+                    <a id="homePage" href="#"
+                        class="block py-2 px-3 text-white-900   md:hover:text-white-700 md:p-0">Main</a>
+                </li>
+                <li>
+                    <a id="allMovies" href="#"
+                        class="block py-2 px-3 text-white-900   md:hover:text-white-700 md:p-0">All Movies</a>
+                </li>
+                
+                <li>
+                    <a id="logIn" href="#" class="block py-2 px-3 text-white  rounded  md:text-white-700 md:p-0 "
+                        aria-current="page">Log In</a>
+                </li>
+                <li>
+                    <a id="signUp" href="#"
+                        class="block py-2 px-3 text-white-900   md:hover:text-white-700 md:p-0">Sign Up</a>
+                </li>
+                
+            </ul>
+        </div>
+    </div>
+</nav>
+  <div class=" lg:flex lg:items-center lg:justify-center mt-[150px] max-lg:py-4">
     <div class="bg-gray-500 p-8 w-full max-w-5xl max-lg:max-w-xl mx-auto rounded-md">
       <h2 class="text-3xl font-extrabold text-black text-center">Checkout</h2>
 
@@ -83,7 +125,7 @@
 
             <div class="flex flex-wrap gap-4 mt-8">
 
-              <button type="button"
+              <button type="button" id="payBtn"
                 class="px-7 py-3.5 text-sm tracking-wide bg-blue-600 text-white rounded-md hover:bg-blue-700">Pay</button>
             </div>
           </form>

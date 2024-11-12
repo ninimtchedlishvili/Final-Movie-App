@@ -319,6 +319,16 @@ function updateSeatMap() {
 
 const price = document.getElementById("total-price");
 
+document.getElementById("allMovies").addEventListener("click", () => {
+    window.location.href = `movies.html`
+    
+});
+
+document.getElementById("homePage").addEventListener("click", () => {
+    window.location.href = `index.html`
+    
+});
+
 document.getElementById("logIn").addEventListener("click", () => {
     window.location.href = `logIn.html`
 });

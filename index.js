@@ -9,6 +9,11 @@ document.getElementById("allMovies").addEventListener("click", () => {
     
 });
 
+document.getElementById("homePage").addEventListener("click", () => {
+    window.location.href = `index.html`
+    
+});
+
 document.getElementById("logIn").addEventListener("click", () => {
     window.location.href = `logIn.html`
 });
@@ -16,6 +21,17 @@ document.getElementById("logIn").addEventListener("click", () => {
 document.getElementById("signUp").addEventListener("click", () => {
     window.location.href = `signUp.html`
 });
+
+document.getElementById("policy").addEventListener("click", () => {
+    window.location.href = `policy.html`
+});
+
+document.getElementById("contact").addEventListener("click", () => {
+    window.location.href = `contact.html`
+});
+
+
+
 
 
 getMovies(API_URL);
