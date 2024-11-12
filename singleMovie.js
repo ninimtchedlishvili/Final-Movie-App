@@ -46,8 +46,8 @@ function showSingleMovie(movie) {
             </div>
         </div>`
 
-        const imdb = document.getElementById("imdb");
-        imdb.innerHTML = `
+    const imdb = document.getElementById("imdb");
+    imdb.innerHTML = `
         <div class="flex justify-between items-start">
             <p class="text-black text-m">IMDb: ${Math.round(vote_average)}.0</p>
         </div>`
@@ -161,18 +161,33 @@ function updateSummary(price) {
     totalTickets.innerHTML = selectedSeats.length;
     totalPrice.innerHTML = price;
 
-    // console.log(seats);
+    console.log();
     cart();
 
-    function cart () {
+    function cart() {
         const checkoutUrl = new URL(window.location.href);
-        checkoutUrl.searchParams.set("price", price);
-        checkoutUrl.searchParams.set("tickets",  selectedSeats.length);
-        checkoutUrl.searchParams.delete("id");
+        const selectedDay = dayDropdown.value;
+        const selectedSessionTime = sessionDropdown.value;
 
-        const newURL = checkoutUrl.search; 
+        const seatInfo = selectedSeats.map(seatIndex => {
+            const rowNum = Math.floor((seatIndex - 1) / seatPerRow) + 1;
+            const seatNumber = seatIndex % seatPerRow || seatPerRow;
+            const seatPrice = calculatePrice(seatIndex);
+            return `Row: ${rowNum} Seat: ${seatNumber} Price: $${seatPrice}`;
+        }).join("|");
+
+        console.log(seatInfo);
+        checkoutUrl.searchParams.delete("id");
+        checkoutUrl.searchParams.set("price", price);
+        checkoutUrl.searchParams.set("tickets", selectedSeats.length);
+        checkoutUrl.searchParams.set("title", title.textContent);
+        checkoutUrl.searchParams.set("date", selectedDay);
+        checkoutUrl.searchParams.set("time", selectedSessionTime);
+        checkoutUrl.searchParams.set("seats", encodeURIComponent(seatInfo));
+
+
+        const newURL = checkoutUrl.search;
         console.log(`checkout.html${newURL}`);
-        // window.location.href = ;
 
         buyButton.addEventListener("click", () => {
             if (selectedSeats.length > 0) {
@@ -197,6 +212,7 @@ function calculatePrice(seatIndex) {
     }
 }
 
+//calendar
 let occupiedSeats = [];
 
 fetch('./src/json/calendar.json')
@@ -254,12 +270,12 @@ fetch('./src/json/calendar.json')
             if (selectedSession) {
                 occupiedSeats = selectedSession.occupiedSeats || [];
                 // console.log("Occupied Seats for this session:", occupiedSeats);
-                
+
                 const seatMap = document.getElementById("seat-map");
-                seatMap.style.display = "block";  
+                seatMap.style.display = "block";
 
                 const bookedInfo = document.getElementById("bookedInfo");
-                bookedInfo.style.display = "block"; 
+                bookedInfo.style.display = "block";
                 updateSeatMap();
             }
         });
@@ -321,12 +337,12 @@ const price = document.getElementById("total-price");
 
 document.getElementById("allMovies").addEventListener("click", () => {
     window.location.href = `movies.html`
-    
+
 });
 
 document.getElementById("homePage").addEventListener("click", () => {
     window.location.href = `index.html`
-    
+
 });
 
 document.getElementById("logIn").addEventListener("click", () => {

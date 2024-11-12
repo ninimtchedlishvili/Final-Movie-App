@@ -3,13 +3,29 @@ const discount = document.getElementById("discount"); //number
 const finalPrice = document.getElementById("finalPrice");
 const discountCode = document.getElementById("discountCode"); //input
 const applyCoupon = document.getElementById("applyCoupon"); //button
-
+const movieDetails = document.getElementById("movieDetails");
+const title = document.getElementById("title"); 
+const dateEl = document.getElementById("date"); 
+const seatsEl = document.getElementById("seatDetails")
 
 
 const searchParams = new URLSearchParams(window.location.search);
+
 let price = parseFloat(searchParams.get("price"));
 const tickets = parseInt(searchParams.get("tickets"));
+const movieTitle = searchParams.get("title");
+const date = searchParams.get("date");
+const time = searchParams.get("time");
 
+const seatInfoEncoded = searchParams.get("seats");
+
+const seatInfo = decodeURIComponent(seatInfoEncoded);
+const seatInfoWithLineBreaks = seatInfo.replace(/,/g, "<br>");
+seatsEl.innerHTML = seatInfoWithLineBreaks
+console.log(seatInfo)
+
+dateEl.innerText = `${date} | ${time}`;
+title.innerHTML = `${movieTitle}`;
 total.innerHTML = `$${price.toFixed(1)}`;
 
 applyCoupon.addEventListener("click", () => {

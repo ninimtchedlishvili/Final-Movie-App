@@ -9,6 +9,11 @@ document.getElementById("allMovies").addEventListener("click", () => {
     
 });
 
+document.getElementById("allMovies1").addEventListener("click", () => {
+    window.location.href = `movies.html`
+    
+});
+
 document.getElementById("homePage").addEventListener("click", () => {
     window.location.href = `index.html`
     
