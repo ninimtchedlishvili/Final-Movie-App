@@ -44,32 +44,38 @@ async function getMovies(url) {
 
 const trendingContainer = document.getElementById("trendingContainer");
 
+
+
+
 function showTrendingMovies(movies) {
-    trendingContainer.innerHTML = "";
-    movies.forEach((movie) => {
-        const { id, overview, title, release_date, poster_path, vote_average } = movie;
+    trendingContainer.innerHTML = ""; // Clear previous content
+    movies.forEach((movie, index) => {
+        const { id, title, poster_path, vote_average } = movie;
 
         if (vote_average >= 6) {
             const singleMovie = document.createElement("div");
+            singleMovie.classList.add("flex", "overflow-visible"); // Set up flex container for each movie
+            singleMovie.style.animationDelay = `${index * 0.1}s`; // Staggered delay for the drop effect
+
             singleMovie.innerHTML = `
-            
-            <div class="flex  overflow-visible ">
-                <img class="w-[132px] rounded-3xl shadow-lg" src="${IMG_PATH + poster_path}" alt="${title}"> 
-            </div>`
+                <div class="flex overflow-visible">
+                    <img class="w-[132px] rounded-3xl shadow-lg" src="${IMG_PATH + poster_path}" alt="${title}">
+                </div>
+            `;
 
             trendingContainer.appendChild(singleMovie);
 
+            // Wait for the movie to be appended to DOM, then trigger the animation by adding the 'drop' class
+            setTimeout(() => {
+                singleMovie.classList.add("drop");
+            }, 0); // Apply animation class after appending
+
             singleMovie.addEventListener("click", () => {
-                window.location.href = `singleMovie.html?id=${id}`
-                
+                window.location.href = `singleMovie.html?id=${id}`;
             });
-
-
-
         }
     });
 }
-
 
 const venom = document.getElementById("venom");
 const insideOut = document.getElementById("insideOut");
@@ -96,4 +102,7 @@ rateFun = (rating) => {
         return "bg-red-400";
     }
 };
+
+
+
 
