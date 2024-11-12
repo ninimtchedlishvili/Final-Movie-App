@@ -109,13 +109,57 @@ function seatSetting() {
 let bookedElements = {};
 let sum = 0;
 
+// function seatSelect(rowNum, seatEl, seatIndex) {
+//     const price = calculatePrice(seatIndex);
+//     if (selectedSeats.length <= 5) {
+
+//         if (!seatEl.classList.contains("occupied")) {
+
+//             if (seatEl.classList.contains("selected")) {
+//                 seatEl.classList.remove("selected");
+
+//                 const bookedSeats = document.getElementById("bookedSeats");
+//                 let booked = bookedElements[seatIndex];
+//                 if (booked) {
+//                     bookedSeats.removeChild(booked);
+//                     delete bookedElements[seatIndex];
+//                     sum -= price;
+//                     const indexInArray = selectedSeats.indexOf(seatIndex);
+//                     if (indexInArray !== -1) {
+//                         selectedSeats.splice(indexInArray, 1);
+//                     }
+//                     // console.log(selectedSeats);
+//                 }
+
+//             } else if (!seatEl.classList.contains("selected")) {
+//                 seatEl.classList.add("selected");
+//                 selectedSeats.push(seatIndex);
+//                 sum += price;
+//                 const booked = document.createElement("div");
+
+//                 booked.innerHTML = `<p class="text-lg font-semibold">Row: ${rowNum} Seat: ${seatIndex} Price: $${price}</p>`;
+
+//                 bookedSeats.appendChild(booked);
+//                 bookedElements[seatIndex] = booked;
+
+//                 updateSummary(sum);
+//             }
+//         }
+
+//     } else {
+//         alert("You can only buy 6 tickets at a time");
+//     }
+// }
 function seatSelect(rowNum, seatEl, seatIndex) {
     const price = calculatePrice(seatIndex);
-    if (selectedSeats.length <= 5) {
+
+    // Allow selecting only if the number of selected seats is less than 6
+    if (selectedSeats.length < 6 || seatEl.classList.contains("selected")) {
 
         if (!seatEl.classList.contains("occupied")) {
 
             if (seatEl.classList.contains("selected")) {
+                // Unselect the seat
                 seatEl.classList.remove("selected");
 
                 const bookedSeats = document.getElementById("bookedSeats");
@@ -124,32 +168,36 @@ function seatSelect(rowNum, seatEl, seatIndex) {
                     bookedSeats.removeChild(booked);
                     delete bookedElements[seatIndex];
                     sum -= price;
+
+                    // Remove the seat from the selectedSeats array
                     const indexInArray = selectedSeats.indexOf(seatIndex);
                     if (indexInArray !== -1) {
                         selectedSeats.splice(indexInArray, 1);
                     }
-                    // console.log(selectedSeats);
+
+                    updateSummary(sum);
                 }
+            } else {
+                // Select the seat if there's room for more seats
+                if (selectedSeats.length < 6) {
+                    seatEl.classList.add("selected");
+                    selectedSeats.push(seatIndex);
+                    sum += price;
 
-            } else if (!seatEl.classList.contains("selected")) {
-                seatEl.classList.add("selected");
-                selectedSeats.push(seatIndex);
-                sum += price;
-                const booked = document.createElement("div");
+                    const booked = document.createElement("div");
+                    booked.innerHTML = `<p class="text-lg font-semibold">Row: ${rowNum} Seat: ${seatIndex} Price: $${price}</p>`;
+                    bookedSeats.appendChild(booked);
+                    bookedElements[seatIndex] = booked;
 
-                booked.innerHTML = `<p class="text-lg font-semibold">Row: ${rowNum} Seat: ${seatIndex} Price: $${price}</p>`;
-
-                bookedSeats.appendChild(booked);
-                bookedElements[seatIndex] = booked;
-
-                updateSummary(sum);
+                    updateSummary(sum);
+                }
             }
         }
-
     } else {
         alert("You can only buy 6 tickets at a time");
     }
 }
+
 
 
 
@@ -174,7 +222,7 @@ function updateSummary(price) {
             const seatNumber = seatIndex % seatPerRow || seatPerRow;
             const seatPrice = calculatePrice(seatIndex);
             return `Row: ${rowNum} Seat: ${seatNumber} Price: $${seatPrice}`;
-        }).join("|");
+        }).join(",");
 
         console.log(seatInfo);
         checkoutUrl.searchParams.delete("id");
