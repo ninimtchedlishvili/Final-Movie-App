@@ -83,15 +83,15 @@ function showTrendingMovies(movies) {
 }
 
 const venom = document.getElementById("venom");
-const insideOut = document.getElementById("insideOut");
+const wildRobot = document.getElementById("wildRobot");
 const deadpool = document.getElementById("deadpool");
 
 venom.addEventListener("click", () => {
     window.location.href = `singleMovie.html?id=912649`
 })
 
-insideOut.addEventListener("click", () => {
-    window.location.href = `singleMovie.html?id=1022789`
+wildRobot.addEventListener("click", () => {
+    window.location.href = `singleMovie.html?id=1184918`
 })
 
 deadpool.addEventListener("click", () => {
